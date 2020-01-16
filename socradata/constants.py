@@ -15,6 +15,7 @@ token_file = open(SOCRATA_API_TOKEN_FILE, 'r')
 socrata_api_token = token_file.read()
 token_file.close()
 
+# header for authenticated requests
 socrata_authorization_header = {'Content-Type': 'application/json', 'X-App-Token': socrata_api_token}
 
 def main():
