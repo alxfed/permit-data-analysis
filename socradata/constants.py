@@ -19,7 +19,7 @@ token_file.close()
 socrata_authorization_header = {'Content-Type': 'application/json', 'X-App-Token': socrata_api_token}
 
 def main():
-    print("You've launche the constants.py file of socradata package as __main__")
+    print("You've launched the constants.py file of socradata package as __main__")
     return
 
 
