@@ -19,11 +19,12 @@ def main():
     # start_dt = pd.Timestamp(1546322400000, unit='ms', tz='US/Central') # HubSpot 'unix' format
     # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
     start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
+
     # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
     end_dt      = pd.Timestamp('2019-01-02', tz='US/Central')
     end_str     = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
-    column = 'issue_date'
+    column      = 'issue_date'
 
     # socrata request(s)
     response = socradata.datasets.where_a_lot_between(dataset, column, start_str, end_str)
