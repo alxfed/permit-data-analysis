@@ -41,7 +41,7 @@ def main():
                     # dates to numpy datetime format
                     'application_start_date': datetime64, # will be a {Timestamp} format in the DataFrame
                     'issue_date': datetime64,
-                    'processing_time': int,
+                    'processing_time': float,
                     # coordinates of location
                     'xcoordinate': float, 'ycoordinate': float,
                     'latitude': float, 'longitude': float}
