@@ -23,7 +23,7 @@ def main():
     start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
 
     # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
-    end_dt      = pd.Timestamp('2019-01-02', tz='US/Central')
+    end_dt      = pd.Timestamp('2020-01-01', tz='US/Central')
     end_str     = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
     column      = 'issue_date'
@@ -36,6 +36,7 @@ def main():
     result = pd.DataFrame.from_records(response, exclude=exclude_columns) # exclude works here, that's why
 
     # format before saving to database
+
     column_types = {'id': int, 'permit_': int, 'reported_cost': float,
                     # dates to numpy datetime format
                     'application_start_date': datetime64, # will be a {Timestamp} format in the DataFrame
@@ -45,7 +46,7 @@ def main():
                     'xcoordinate': float, 'ycoordinate': float,
                     'latitude': float, 'longitude': float}
 
-    result = result.astype(column_types)
+    result = result.astype(column_types, errors='ignore')
     # # without astype()
     # result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
     # result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
@@ -66,7 +67,7 @@ def main():
                   index=False)
 
     # Show summary of what has been downuploaded
-    print(result.head(n=3), '\n\n')
+    print('\n\n', result.head(n=3), '\n\n')
     result.info(verbose=True, memory_usage=True)
     print('\n')
     print(result.tail(n=3))
