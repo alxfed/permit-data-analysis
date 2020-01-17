@@ -27,18 +27,27 @@ def main():
 
     # exclude what can not fit into a database table
     exclude_columns = ['location']  # 'xcoordinate, ycoordinate, latitude, longitude,
-    result = pd.DataFrame.from_records(response, exclude=exclude_columns)
-    # NOT astype()
-    result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
-    result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
-    result['reported_cost']             = pd.to_numeric(result['reported_cost'], errors='coerce')
-    result['xcoordinate']               = pd.to_numeric(result['xcoordinate'])
-    result['ycoordinate']               = pd.to_numeric(result['ycoordinate'])
-    result['latitude']                  = pd.to_numeric(result['latitude'])
-    result['longitude']                 = pd.to_numeric(result['longitude'])
+    result = pd.DataFrame.from_records(response, exclude=exclude_columns)  # the dates convert automagically
+    column_types = {'id': int, 'permit_': int,
+                    'reported_cost': float,
+                    'xcoordinate': float, 'ycoordinate': float,
+                    'latitude': float, 'longitude': float}
+
+    result = result.astype(column_types)
+    # # NOT astype()
+    # result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
+    # result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
+    # result['reported_cost']             = pd.to_numeric(result['reported_cost'], errors='coerce')
+    # result['xcoordinate']               = pd.to_numeric(result['xcoordinate'])
+    # result['ycoordinate']               = pd.to_numeric(result['ycoordinate'])
+    # result['latitude']                  = pd.to_numeric(result['latitude'])
+    # result['longitude']                 = pd.to_numeric(result['longitude'])
+
+    one = result.iloc[123]                   # single permit
+    par = result.iloc[123]['reported_cost']  # check the value and type
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
-    result.to_sql(name=sorting.NEW_PERMITS_TABLE,
+    result.to_sql(name=sorting.PERMITS_TABLE,
                   con=conn, if_exists='replace',
                   index=False)
     return

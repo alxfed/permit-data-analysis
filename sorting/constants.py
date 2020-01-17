@@ -50,6 +50,7 @@ CREATED_INSPECTION_NOTES    = 'created_insp_notes'
 INSPECTION_NOTES            = 'inspection_notes_log'
 ENGAGEMENTS_TABLE           = 'all_engagements'
 
+PERMITS_TABLE               = 'permits'
 NEW_PERMITS_TABLE           = 'new_permits'
 NEW_PERMITS_WITH_GENERAL_CONTRACTORS_TABLE = 'new_permits_with_gen_contractors'
 
