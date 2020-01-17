@@ -28,6 +28,7 @@ def main():
     # exclude what can not fit into a database table
     exclude_columns = ['location']  # 'xcoordinate, ycoordinate, latitude, longitude,
     result = pd.DataFrame.from_records(response, exclude=exclude_columns)  # the dates convert automagically
+    # format before saving to database
     column_types = {'id': int, 'permit_': int,
                     'reported_cost': float,
                     'xcoordinate': float, 'ycoordinate': float,
@@ -43,7 +44,7 @@ def main():
     # result['latitude']                  = pd.to_numeric(result['latitude'])
     # result['longitude']                 = pd.to_numeric(result['longitude'])
 
-    one = result.iloc[123]                   # single permit
+    one = result.iloc[123]                   # check single permit
     par = result.iloc[123]['reported_cost']  # check the value and type
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
