@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""This is an example of use for Pandas machinery, the Python versions of some functions
-are commented out.
+"""This is an example of use for Pandas machinery,
+the pure Python variants of some functions are commented out.
 """
 import socradata
 import pandas as pd
@@ -19,6 +19,7 @@ def main():
     start_dt    = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
     # start_dt = pd.Timestamp(1546322400000, unit='ms', tz='US/Central') # HubSpot 'unix' format
     # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
+
     start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
 
     # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
@@ -37,7 +38,7 @@ def main():
     # format before saving to database
     column_types = {'id': int, 'permit_': int, 'reported_cost': float,
                     # dates to numpy datetime format
-                    'application_start_date': datetime64,
+                    'application_start_date': datetime64, # will be a {Timestamp} format in the DataFrame
                     'issue_date': datetime64,
                     'processing_time': int,
                     # coordinates of location
@@ -45,7 +46,6 @@ def main():
                     'latitude': float, 'longitude': float}
 
     result = result.astype(column_types)
-
     # # without astype()
     # result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
     # result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
@@ -55,10 +55,10 @@ def main():
     # result['latitude']                  = pd.to_numeric(result['latitude'])
     # result['longitude']                 = pd.to_numeric(result['longitude'])
 
-    permit_n = result[result['permit_'] == 100761708] # check permit #
+    permit_n = result[result['permit_'] == 100761708] # check a particular permit #
 
-    one = result.iloc[5]                   # check single line
-    par = result.iloc[5]['issue_date']  # check the value and type
+    one = result.iloc[5]                    # check single line of the table
+    par = result.iloc[5]['issue_date']      # check the value and type
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
     result.to_sql(name=sorting.PERMITS_TABLE,
