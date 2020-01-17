@@ -8,6 +8,7 @@ import pandas as pd
 import sqlalchemy as sqlalc
 import sorting
 from numpy import datetime64
+from io import StringIO
 
 
 def main():
@@ -63,6 +64,12 @@ def main():
     result.to_sql(name=sorting.PERMITS_TABLE,
                   con=conn, if_exists='replace',
                   index=False)
+
+    # Show summary of what came in
+    print(result.head(n=3), '\n\n')
+    result.info(verbose=True, memory_usage=True)
+    print('\n')
+    print(result.tail(n=3))
     return
 
 
