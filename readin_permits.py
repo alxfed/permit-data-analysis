@@ -34,7 +34,7 @@ def main():
                     'latitude': float, 'longitude': float}
 
     result = result.astype(column_types)
-    # # NOT astype()
+    # # without astype()
     # result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
     # result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
     # result['reported_cost']             = pd.to_numeric(result['reported_cost'], errors='coerce')
