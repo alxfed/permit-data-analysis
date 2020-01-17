@@ -30,18 +30,18 @@ def main():
     # exclude what can not fit into a database table anyway
     exclude_columns = ['location']  # 'xcoordinate, ycoordinate, latitude, longitude,
 
-    result = pd.DataFrame.from_records(response, exclude=exclude_columns)  # the dates convert automagically
+    result = pd.DataFrame.from_records(response, exclude=exclude_columns) # exclude works here, that's why
+
     # format before saving to database
-    column_types = {
-        'id': int, 'permit_': int, 'reported_cost': float,
+    column_types = {'id': int, 'permit_': int, 'reported_cost': float,
+                    # dates to numpy datetime format
+                    'application_start_date': numpy.datetime64,
+                    'issue_date': numpy.datetime64,
+                    'processing_time': int,
+                    # coordinates of location
+                    'xcoordinate': float, 'ycoordinate': float,
+                    'latitude': float, 'longitude': float}
 
-        'application_start_date': numpy.datetime64,
-        'issue_date': numpy.datetime64,
-        'processing_time': int,
-
-        'xcoordinate': float, 'ycoordinate': float,
-        'latitude': float, 'longitude': float
-    }
     result = result.astype(column_types)
 
     # # without astype()
@@ -55,8 +55,8 @@ def main():
 
     permit_n = result[result['permit_'] == 100761708] # check permit #
 
-    one = result.iloc[123]                   # check single line
-    par = result.iloc[123]['issue_date']  # check the value and type
+    one = result.iloc[5]                   # check single line
+    par = result.iloc[5]['issue_date']  # check the value and type
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
     result.to_sql(name=sorting.PERMITS_TABLE,
