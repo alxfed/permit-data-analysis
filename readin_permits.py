@@ -23,7 +23,7 @@ def main():
     start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
 
     # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
-    end_dt      = pd.Timestamp('2020-01-01', tz='US/Central')
+    end_dt      = pd.Timestamp('2019-12-31', tz='US/Central')
     end_str     = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
     column      = 'issue_date'
