@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""...
+"""This is an example of use for Pandas machinery, the Python versions of some functions
+are commented out.
 """
 import socradata
 import pandas as pd
-import datetime as dt
+# import datetime as dt
 import sqlalchemy as sqlalc
 import sorting
 
@@ -11,9 +12,13 @@ import sorting
 def main():
     dataset = 'ydr8-5enu'  # permits dataset
     # strings of parameters for request
-    start_dt = dt.datetime(year=2019, month=12, day=1, hour=0, minute=0, second=0)
+    # start_dt = dt.datetime(year=2019, month=12, day=1, hour=0, minute=0, second=0)
+    start_dt = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
+    # start_dt = pd.Timestamp(1546322400000, unit='ms', tz='US/Central') # HubSpot 'unix' format
+    # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
     start_str = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
-    end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
+    # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
+    end_dt = pd.Timestamp('2019-01-02')
     end_str = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
     column = 'issue_date'
