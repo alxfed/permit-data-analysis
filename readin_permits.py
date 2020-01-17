@@ -8,7 +8,7 @@ import pandas as pd
 import sqlalchemy as sqlalc
 import sorting
 from numpy import datetime64
-from io import StringIO
+
 
 
 def main():
