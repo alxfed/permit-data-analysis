@@ -55,17 +55,17 @@ def main():
     # result['latitude']                  = pd.to_numeric(result['latitude'])
     # result['longitude']                 = pd.to_numeric(result['longitude'])
 
-    permit_n = result[result['permit_'] == 100761708] # check a particular permit #
+    permit_n = result[result['permit_'] == 100761708] # check a particular permit # (debug)
 
-    one = result.iloc[5]                    # check single line of the table
-    par = result.iloc[5]['issue_date']      # check the value and type
+    one = result.iloc[5]                    # check single line of the table (debug)
+    par = result.iloc[5]['issue_date']      # check the value and type (debug)
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
     result.to_sql(name=sorting.PERMITS_TABLE,
                   con=conn, if_exists='replace',
                   index=False)
 
-    # Show summary of what came in
+    # Show summary of what has been downuploaded
     print(result.head(n=3), '\n\n')
     result.info(verbose=True, memory_usage=True)
     print('\n')
