@@ -7,7 +7,7 @@ import pandas as pd
 # import datetime as dt
 import sqlalchemy as sqlalc
 import sorting
-import numpy
+from numpy import datetime64
 
 
 def main():
@@ -15,13 +15,13 @@ def main():
 
     # strings of parameters for request
     # start_dt = dt.datetime(year=2019, month=12, day=1, hour=0, minute=0, second=0)
-    start_dt = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
+    start_dt    = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
     # start_dt = pd.Timestamp(1546322400000, unit='ms', tz='US/Central') # HubSpot 'unix' format
     # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
-    start_str = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
+    start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # end_dt = dt.datetime(year=2019, month=12, day=28, hour=0, minute=0, second=0)
-    end_dt = pd.Timestamp('2019-01-02', tz='US/Central')
-    end_str = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
+    end_dt      = pd.Timestamp('2019-01-02', tz='US/Central')
+    end_str     = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
     column = 'issue_date'
 
@@ -35,8 +35,8 @@ def main():
     # format before saving to database
     column_types = {'id': int, 'permit_': int, 'reported_cost': float,
                     # dates to numpy datetime format
-                    'application_start_date': numpy.datetime64,
-                    'issue_date': numpy.datetime64,
+                    'application_start_date': datetime64,
+                    'issue_date': datetime64,
                     'processing_time': int,
                     # coordinates of location
                     'xcoordinate': float, 'ycoordinate': float,
