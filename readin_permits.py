@@ -7,10 +7,12 @@ import pandas as pd
 # import datetime as dt
 import sqlalchemy as sqlalc
 import sorting
+import numpy
 
 
 def main():
     dataset = 'ydr8-5enu'  # permits dataset
+
     # strings of parameters for request
     # start_dt = dt.datetime(year=2019, month=12, day=1, hour=0, minute=0, second=0)
     start_dt = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
@@ -22,19 +24,26 @@ def main():
     end_str = end_dt.strftime('%Y-%m-%dT%H:%M:%S')
     # the column 'where' will be applied to
     column = 'issue_date'
+
     # socrata request(s)
     response = socradata.datasets.where_a_lot_between(dataset, column, start_str, end_str)
-
-    # exclude what can not fit into a database table
+    # exclude what can not fit into a database table anyway
     exclude_columns = ['location']  # 'xcoordinate, ycoordinate, latitude, longitude,
+
     result = pd.DataFrame.from_records(response, exclude=exclude_columns)  # the dates convert automagically
     # format before saving to database
-    column_types = {'id': int, 'permit_': int,
-                    'reported_cost': float,
-                    'xcoordinate': float, 'ycoordinate': float,
-                    'latitude': float, 'longitude': float}
+    column_types = {
+        'id': int, 'permit_': int, 'reported_cost': float,
 
+        'application_start_date': numpy.datetime64,
+        'issue_date': numpy.datetime64,
+        'processing_time': int,
+
+        'xcoordinate': float, 'ycoordinate': float,
+        'latitude': float, 'longitude': float
+    }
     result = result.astype(column_types)
+
     # # without astype()
     # result['application_start_date']    = pd.to_datetime(result['application_start_date'], errors='coerce')
     # result['issue_date']                = pd.to_datetime(result['issue_date'], errors='coerce')
@@ -44,8 +53,10 @@ def main():
     # result['latitude']                  = pd.to_numeric(result['latitude'])
     # result['longitude']                 = pd.to_numeric(result['longitude'])
 
-    one = result.iloc[123]                   # check single permit
-    par = result.iloc[123]['reported_cost']  # check the value and type
+    permit_n = result[result['permit_'] == 100761708] # check permit #
+
+    one = result.iloc[123]                   # check single line
+    par = result.iloc[123]['issue_date']  # check the value and type
 
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
     result.to_sql(name=sorting.PERMITS_TABLE,
