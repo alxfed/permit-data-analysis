@@ -26,7 +26,7 @@ def main():
         permits_of_type.info() # print out a summary of what will be saved
         permits_of_type.to_sql(name=type,
                                con=conn_target, if_exists='replace',
-                               index=True)        # with indexes so that it can be reassembled
+                               index=False)        # with indexes it can be reassembled
 
         print('Saved table ', type, '  with its index\n\n')
     else:
