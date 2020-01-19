@@ -66,10 +66,9 @@ def main():
                   index=False)
 
     # Show summary of what has been downuploaded
-    print('\n\n', result.head(n=3), '\n\n')
+    print('\n\n', result.head(n=2), '\n\n')
+    print(result.tail(n=2), '\n\n')
     result.info(verbose=True, memory_usage=True)
-    print('\n')
-    print(result.tail(n=3))
     return
 
 
