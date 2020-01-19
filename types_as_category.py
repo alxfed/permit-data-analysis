@@ -15,13 +15,12 @@ def main():
     types = list(permits['permit_type'].unique())  # unique returns a numpy Array
 
     permits_categorised = permits.copy()
-    permits_categorised[['permit_type', 'review_type']] = permits_categorised[['permit_type', 'review_type']].astype('category')
+    convert_to_categories = ['permit_type', 'review_type']
+    permits_categorised[convert_to_categories] = permits_categorised[convert_to_categories].astype('category')
 
-    permits_categorised.to_sql(name=sorting.constants.PERMITS_CATEGORISED,
-                        con=conn_target, if_exists='replace',
-                        index=False)
-
-    print('Saved categorised permits to ', sorting.PREP_DATABASE_URI, '\t', sorting.constants.PERMITS_CATEGORISED, '\n')
+    permits_categorised.info(verbose=True)
+    # one = permits_categorised.iloc[5]  # check single line of the table (debug)
+    # par = type(permits_categorised.iloc[5]['permit_type']) # check the value and type (debug)
     return
 
 
