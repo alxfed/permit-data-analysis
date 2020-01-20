@@ -18,6 +18,7 @@ def main():
     start_dt    = pd.Timestamp('2019-01-01', tz='US/Central') # much simpler, isn't it?
     # start_dt = pd.Timestamp(1546322400000, unit='ms', tz='US/Central') # HubSpot 'unix' format
     # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html
+    # by the way, Wes McKinney: https://stackoverflow.com/questions/13703720/converting-between-datetime-timestamp-and-datetime64/13753918#13753918
 
     start_str   = start_dt.strftime('%Y-%m-%dT%H:%M:%S')
 
