@@ -31,7 +31,7 @@ def main():
     # bins = numpy.logspace(start=1, stop=8, num=1, endpoint=True)
     # reported_costs.plot.hist(bins=bins)
     #
-    extra_big_removed = reported_costs[reported_costs['reported_cost'] < 50000]
+    extra_big_removed = reported_costs[reported_costs['reported_cost'] < 50000] # 14446 before and 13165 after
     extra_big_removed.plot.hist(bins=10, histtype='step', figsize=(8, 8))
     plt.show()
 
