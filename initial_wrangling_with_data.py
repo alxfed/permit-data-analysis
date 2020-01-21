@@ -5,6 +5,11 @@ import sqlalchemy as sqlalc
 import pandas as pd
 import sorting
 import matplotlib.pyplot as plt
+import numpy
+# import seaborn.a as sns
+#
+# sns.set() #rescue matplotlib's styles from the early '90s
+#
 
 
 def main():
@@ -27,8 +32,17 @@ def main():
                                    'work_description', 'reported_cost',
                                    'xcoordinate', 'ycoordinate', 'latitude', 'longitude']
 
-    permits_for_plotting = permits.loc[:,useful_columns_for_plotting]  # this is a subsetted copy
+    permits_for_plotting = permits.loc[:,useful_columns_for_plotting] # this is a subsetted copy
 
+    reported_costs = permits.loc[:, ['permit_type', 'reported_cost']]
+    reported_costs.hist(by='permit_type', column='reported_cost')
+    plt.show()
+
+    bins = numpy.logspace(start=1, stop=9, num=1, endpoint=True)
+    reported_costs.plot.hist(by='permit_type', bins=bins) # , column='reported_cost'
+
+    plt.show()
+    print('Are you ok?')
     # create/save separate auxiliary table for each type
     for type in types_list:
         permits_of_type = pd.DataFrame()
