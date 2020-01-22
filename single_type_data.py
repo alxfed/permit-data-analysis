@@ -31,7 +31,11 @@ def main():
     # bins = numpy.logspace(start=1, stop=8, num=1, endpoint=True)
     # reported_costs.plot.hist(bins=bins)
     #
-    reported_costs.cut()
+    reported_costs['size'] = pd.cut(reported_costs['reported_cost'],
+                                    bins=[-0.1, 5000, 500000, 5000000, 50000000, 5000000000],
+                                    right=True,
+                                    labels=['S', 'M', 'L', 'XL', 'XXL'])
+
     extra_big_removed = reported_costs[reported_costs['reported_cost'] < 50000] # 14446 before and 13165 after
     extra_big_removed.plot.hist(bins=10, histtype='step', figsize=(8, 8))
     big_without_extra = reported_costs[(reported_costs['reported_cost'] >= 50000) & (reported_costs['reported_cost'] < 500000)]
