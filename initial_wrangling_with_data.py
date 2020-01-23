@@ -17,6 +17,17 @@ def main():
     conn_target = sqlalc.create_engine(sorting.TARGET_DATABASE_URI)
 
     permits = pd.read_sql_table(table_name=sorting.PERMITS_TABLE, con=conn_source)
+
+    reported_costs = permits.loc[:, ['reported_cost']]
+
+    font_d = {'family': 'serif', 'color': 'black', 'weight': 'normal', 'size': 16}
+    bins = numpy.logspace(start=1, stop=10, num=10, endpoint=True)
+    Fig_1 = reported_costs.plot(bins=bins, kind='hist', histtype='step', loglog=True)
+    Fig_1.set_title("Number of permits", fontdict=font_d)
+    Fig_1.set_xlabel('Reported Costs of the permits')
+    Fig_1.set_ylabel('Number of permits in a bin')
+    plt.show()
+
     # all types of permits
     types_list = list(permits['permit_type'].unique())  # unique returns a numpy Array
     permit_types = pd.DataFrame(types_list, columns=['permit_type'])
@@ -34,12 +45,11 @@ def main():
 
     permits_for_plotting = permits.loc[:,useful_columns_for_plotting] # this is a subsetted copy
 
-    reported_costs = permits.loc[:, ['permit_type', 'reported_cost']]
-    reported_costs.hist(by='permit_type', column='reported_cost')
-    plt.show()
 
-    bins = numpy.logspace(start=1, stop=9, num=1, endpoint=True)
-    reported_costs.plot.hist(by='permit_type', bins=bins) # , column='reported_cost'
+    # reported_costs.hist(by='permit_type', column='reported_cost')
+    # plt.show()
+
+ # , column='reported_cost'
 
     plt.show()
     print('Are you ok?')

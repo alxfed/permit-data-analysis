@@ -61,6 +61,10 @@ def main():
     one = result.iloc[5]                    # check single line of the table (debug)
     par = result.iloc[5]['issue_date']      # check the value and type (debug)
 
+    # do something with bad reported costs here and now
+    result['reported_cost'].fillna(value=1, inplace=True)
+    result['reported_cost'].replace(to_replace=0, value=1, inplace=True)
+
     conn = sqlalc.create_engine(sorting.HOME_DATABASE_URI)
     result.to_sql(name=sorting.PERMITS_TABLE,
                   con=conn, if_exists='replace',

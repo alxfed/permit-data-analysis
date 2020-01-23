@@ -37,7 +37,7 @@ def main():
     big_without_extra.hist(bins=10, histtype='step', figsize=(8, 8) )
     plt.show()
 
-    bins = numpy.logspace(start=1, stop=8, num=1, endpoint=True)
+    bins = numpy.logspace(start=1, stop=8, num=19, endpoint=True)
     reported_costs.plot.hist(by='permit_type', bins=bins) # , column='reported_cost'
 
 
