@@ -34,6 +34,11 @@ def main():
     sizes = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
     bbins = [0.0, 100.0, 1000.0, 10000, 100000, 1000000, 10000000, 100000000, 10000000000]
     permits['size'] = pd.cut(reported_costs['reported_cost'], bins=bbins, labels=sizes)
+    reported_costs['size'] = pd.cut(reported_costs['reported_cost'], bins=bbins, labels=sizes)
+
+    plt.figure(num=1, figsize=(12,12))
+    reported_costs.hist(by='size', bins=bbins)
+
 
     # bins = [(0,100],                    # XXS
     #         (100, 1000],                # XS
