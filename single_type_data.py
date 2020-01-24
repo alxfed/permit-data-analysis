@@ -32,8 +32,17 @@ def main():
     # reported_costs.plot.hist(bins=bins)
     #
     sizes = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
-    reported_costs['size'] = pd.qcut(reported_costs['reported_cost'],
-                                    q=8, labels=sizes)
+    bbins = [0.0, 100.0, 1000.0, 10000, 100000, 1000000, 10000000, 100000000, 10000000000]
+    permits['size'] = pd.cut(reported_costs['reported_cost'], bins=bbins, labels=sizes)
+
+    # bins = [(0,100],                    # XXS
+    #         (100, 1000],                # XS
+    #         (1000, 10000],              # S
+    #         (10000, 100000],            # M
+    #         (100000, 1000000],          # L
+    #         (1000000, 10000000],        # XL
+    #         (10000000, 100000000],      # XXL
+    #         (100000000, 1000000000]]
 
     extra_big_removed = reported_costs[reported_costs['reported_cost'] < 50000] # 14446 before and 13165 after
     extra_big_removed.plot.hist(bins=10, histtype='step', figsize=(8, 8))
